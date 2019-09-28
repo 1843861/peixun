@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/ajax.js"></script>
+</head>
+<body>
+    <label for="">用户名：</label><input type="text"><br>
+    <label for="">密码</label><input type="password"><br>
+    <button id="btn">登录</button>
+
+    <script>
+        var ips=document.querySelectorAll('input');
+        document.getElementById('btn').onclick=function(){
+            var username=ips[0].value;//用户名
+            var pwd=ips[1].value;//密码
+            //表单校验
+            //登录
+            login(username,pwd);
+        };
+
+        function login(username,pwd){
+            var url="http://localhost:5000";//服务器地址
+            // var xhr=new XMLHttpRequest();
+            // xhr.open("POST",url);
+            // //请求参数
+            var parms="username="+username+"&password="+pwd;
+            // xhr.send(parms);
+            // //接收服务器数据
+            // xhr.onreadystatechange=function(){
+            //     if(xhr.readyState==4&&xhr.status==200){
+            //         console.log(this.responseText);
+            //     }
+            // };
+
+                ajax('POST',url,function(data){
+                    console.log(data);
+                },parms);
+        }
+        
+        
+    </script>
+</body>
+</html>

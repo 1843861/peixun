@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="">用户名：</label><input type="text"><br>
+    <label for="">密码：</label><input type="password"><br>
+    <button>登录</button><br>
+    用户名：<span></span>
+
+    <script>
+        var button=document.querySelector('button');
+        button.onclick = function () {
+            var uName = document.querySelectorAll('input')[0].value; //用户名
+            var pwd = document.querySelectorAll('input')[1].value; //密码            
+            var parms = "username=" + uName + "&pwd=" + pwd; //请求参数
+            //发起请求
+            getData(parms);
+        };
+        //post请求  带有参数
+        function getData(parms){
+            var url='http://localhost:5000';//服务器地址
+            var xhr=new XMLHttpRequest();
+            xhr.open("POST",url);
+            xhr.send(parms);//将数据放入请求体中
+
+            xhr.onreadystatechange=function(){
+                if(this.readyState==4&&this.status==200){
+                    // console.log(this.responseText);
+                    var obj=JSON.parse(this.responseText);
+                    document.querySelector('span').innerHTML=obj.username;
+                }
+            };
+        }
+    </script>
+</body>
+
+</html>

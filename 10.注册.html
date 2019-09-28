@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>用户注册</h2>
+    <label for="">用户名：</label>
+    <input type="text"><br>
+    <label for="">密码:</label>
+    <input type="password"><br>
+    <label for="">重复密码:</label>
+    <input type="password"><br>
+    <label for="">email:</label>
+    <input type="text"><br>
+    <button>注册</button>
+    <script>
+        var ips=document.querySelectorAll('input');
+        //注册事件
+        document.querySelector('button').onclick=function(){
+            var uName=ips[0].value;//用户名
+            var pwd=ips[1].value;//密码
+            var rPwd=ips[2].value;
+            var email=ips[3].value;
+            //表单校验........
+            //进行注册
+            register(uName,pwd,email);
+        };
+
+        //注册
+        function register(username,pwd,email){
+            var url="http://localhost:3000";//服务器地址
+            var xhr=new XMLHttpRequest();
+            xhr.open("POST",url);
+            //请求参数
+            var parms="username="+username+"&password="+pwd+"&email="+email;
+            xhr.send(parms);
+            //接收服务器数据
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    console.log(this.responseText);
+                }
+            };
+        }
+        
+    </script>
+</body>
+
+</html>

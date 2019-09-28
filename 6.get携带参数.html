@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/ajax.js"></script>
+</head>
+<body>
+    <button>请求所有书籍</button><br>
+    <label for="">书名：</label><input type="text"><button id="btn">搜索</button>
+    <ul>
+
+    </ul>
+    <script>
+
+        //点击  请求
+        // document.querySelector('button').onclick=function(){
+        //     ajax("GET",url,function(data){
+        //         // console.log(data);
+        //         console.log(JSON.parse(data));
+        //     });
+        // };
+
+        var oUl=document.querySelector('ul');
+        //搜索事件
+        document.querySelector('#btn').onclick=function(){
+            var url="http://localhost:4000";//服务器地址
+            //获取书籍名
+            var bookName=document.querySelector('input').value;
+            // console.log(bookName);
+            // url=url+"?name="+bookName;
+            console.log(url);
+            // console.log(url);
+            // ajax("GET",url,function(data){
+            //     // console.log(data);
+            //     // console.log(JSON.parse(data));
+            //     showData(JSON.parse(data));
+            // });         
+            
+            
+            //使用新方法
+            var parms="name="+bookName;
+            ajax('GET',url,function(data){
+                console.log(data);
+            },parms);
+        };
+
+        //将数据显示到页面中
+        function showData(obj){
+            console.log(obj);
+            clear();//清空ul
+            for(var i in obj.data){
+                // console.log(obj.data[i]);
+                var oli=document.createElement('li');
+                oli.innerHTML=obj.data[i].name;
+                oUl.appendChild(oli);
+            }
+        }
+        //清空ul
+        function clear(){
+            if(oUl.children.length==0){
+                return;
+            }
+            var len=oUl.children.length;
+            //删除li
+            for(var i=0;i<oUl.children.length;){
+                oUl.removeChild(oUl.children[0]);
+            }            
+        }
+    </script>
+</body>
+</html>
